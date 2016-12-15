@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="{% static 'css/djangoblog.css' %}">
   </head>
   <body>
+    <!-- Admin bar -->
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+        </nav>
+      </div>
+    </div>
     <!-- Navbar -->
     <div class="blog-masthead">
       <div class="container">
