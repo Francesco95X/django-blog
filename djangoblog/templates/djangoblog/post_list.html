@@ -1,17 +1,58 @@
+{% load staticfiles %}
 <DOCTYPE! html>
   <head>
     <title>Blog Test</title>
+    <!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/djangoblog.css' %}">
   </head>
   <body>
-    <div>
-      <h1><a href="">News</a></h1>
-    </div>
-    {% for post in posts %}
-      <div>
-        <p>published: {{ post.published_date }}</p>
-        <h1><a href="">{{ post.title }}</a></h1>
-        <p>{{ post.text|linebreaksbr }}</p>
+    <!-- Navbar -->
+    <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="#">Home</a>
+          <a class="blog-nav-item" href="#">About</a>
+          <a class="blog-nav-item" href="#">Contact</a>
+          <a class="blog-nav-item" href="#">Archive</a>
+        </nav>
       </div>
-    {% endfor %}
+    </div>
+
+    <div class="container">
+      <div class="blog-header">
+        <h1 class="blog-title"><a href="">News</a></h1>
+        <p class="lead blog-description">A test blog.</p>
+      </div>
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+          {% for post in posts %}
+            <div class="blog-post">
+              <h2 class="blog-post-title"><a href="#">{{ post.title }}</a></h1>
+              <p class="blog-post-meta">{{ post.published_date }}</p>
+              <p>{{ post.text|linebreaksbr }}</p>
+            </div>
+          {% endfor %}
+          <nav>
+            <ul class="pager">
+              <li><a href="#">Previous</a></li>
+              <li><a href="#">Next</a></li>
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer class="blog-footer">
+      <p>Blog for test purpose. Final version TBA soon.</p>
+      <p>@Francé 2016</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
   </body>
 </html>
