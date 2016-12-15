@@ -9,13 +9,15 @@
   </head>
   <body>
     <!-- Admin bar -->
-    <div class="blog-masthead">
-      <div class="container">
-        <nav class="blog-nav">
-          <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-        </nav>
+    {% if user.is_authenticated %}
+      <div class="blog-masthead">
+        <div class="container">
+          <nav class="blog-nav">
+            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+          </nav>
+        </div>
       </div>
-    </div>
+    {% endif %}
     <!-- Navbar -->
     <div class="blog-masthead">
       <div class="container">
