@@ -1,0 +1,16 @@
+{% extends 'djangoblog/base.html' %}
+
+{% block content %}
+    <div class="blog-post">
+      <h2 class="blog-post-title"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+      {% if post.published_date %}
+        <p class="blog-post-meta">{{ post.published_date }}</p>
+      {% endif %}
+      <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+  <nav>
+    <ul class="pager">
+      <li><a href="#">Back</a></li>
+    </ul>
+  </nav>
+{% endblock content %}
