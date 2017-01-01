@@ -17,6 +17,7 @@
           <nav class="blog-nav">
             <a href="{% url 'post_new' %}" class="blog-nav-item"><i class="fa fa-plus" aria-hidden="true" style="color:white;"></i></a>
             <a href="{% url 'admin:index' %}" class="blog-nav-item"><i class="fa fa-user" aria-hidden="true" style="color:white;"></i></a>
+            <p style="color:white;">Hello {{ user.username }}|<small><a style="color:white;"href="{% url 'admin:logout' %}">Log out</a></small></p>
           </nav>
         </div>
       </div>
