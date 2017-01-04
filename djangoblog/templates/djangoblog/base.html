@@ -2,59 +2,130 @@
 <DOCTYPE! html>
   <head>
     <title>Blog Test</title>
-    <!-- Bootstrap -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--[if lte IE 8]><script src="{% static 'js/ie/html5shiv.js' %}"></script><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="{% static 'css/ie9.css' %}" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="{% static 'css/ie8.css' %}" /><![endif]-->
+
     <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/djangoblog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
   </head>
   <body>
-    <!-- Admin bar -->
-    {% if user.is_authenticated %}
-      <div class="blog-masthead">
-        <div class="container">
-          <nav class="blog-nav">
-            <a href="{% url 'post_new' %}" class="blog-nav-item"><i class="fa fa-plus" aria-hidden="true" style="color:white;"></i></a>
-            <a href="{% url 'admin:index' %}" class="blog-nav-item"><i class="fa fa-user" aria-hidden="true" style="color:white;"></i></a>
-            <p style="color:white;">Hello {{ user.username }}|<small><a style="color:white;"href="{% url 'admin:logout' %}">Log out</a></small></p>
-          </nav>
-        </div>
-      </div>
-    {% endif %}
-    <!-- Navbar -->
-    <div class="blog-masthead">
-      <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item active" href="#">Home</a>
-          <a class="blog-nav-item" href="#">About</a>
-          <a class="blog-nav-item" href="#">Contact</a>
-          <a class="blog-nav-item" href="#">Archive</a>
-        </nav>
-      </div>
+    <!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="{% url 'post_list' %}">Daily Life</a></h1>
+						<nav class="links">
+							<ul>
+								<li><a href="{% url 'post_list' %}">Home</a></li>
+								<li><a href="#">About</a></li>
+								<li><a href="#">Contact</a></li>
+								<li><a href="#">Archive</a></li>
+							</ul>
+						</nav>
+  						<nav class="main">
+  							<ul>
+  								<li class="search">
+  									<a class="fa-search" href="#search">Search</a>
+  									<form id="search" method="get" action="#">
+  										<input type="text" name="query" placeholder="Search" />
+  									</form>
+  								</li>
+                  {% if user.is_authenticated %}
+  								  <li class="menu">
+  									  <a class="fa-bars" href="#menu">Menu</a>
+  								  </li>
+                  {% endif %}
+  							</ul>
+  						</nav>
+					</header>
+
+				<!-- Menu -->
+        {% if user.is_authenticated %}
+					<section id="menu">
+
+						<!-- Search -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
+
+						<!-- Links -->
+							<section>
+								<ul class="links">
+                  <li>
+										<h3>Hello {{ user.username }}</h3>
+										<a href="{% url 'admin:logout' %}"><p>Log out</p></a>
+									</li>
+									<li>
+										<a href="{% url 'post_new' %}">
+											<h3>Create post</h3>
+											<i class="fa fa-plus" aria-hidden="true" style="color:black;"></i>
+										</a>
+									</li>
+									<li>
+										<a href="{% url 'admin:index' %}">
+											<h3>Manage</h3>
+											<i class="fa fa-user" aria-hidden="true" style="color:black;"></i>
+										</a>
+									</li>
+								</ul>
+							</section>
+
+					</section>
+        {% endif %}
+          <div id="main">
+            {% block content %}
+            {% endblock %}
+          </div>
+          <!-- Sidebar -->
+  				<section id="sidebar">
+
+  					<!-- Intro -->
+  					<section id="intro">
+  						<a href="#logo" class="logo"><img src="media/admin/logo.png" alt="" /></a>
+  						<header>
+  							<h2>Daily Life</h2>
+  							<p>A blog about daily life news</a></p>
+  						</header>
+  					</section>
+
+            <!-- About -->
+            <section class="blurb">
+              <h2>About</h2>
+              <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
+              <ul class="actions">
+                <li><a href="#" class="button">Learn More</a></li>
+              </ul>
+            </section>
+
+            <!-- Footer -->
+						<section id="footer">
+							<ul class="icons">
+								<li><a href="#" class="fa-facebook"><span class="label">Facebook</span></a></li>
+								<li><a href="#" class="fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#" class="fa-envelope"><span class="label">Email</span></a></li>
+							</ul>
+							<p class="copyright">&copy; DailyLife 2017.</p>
+						</section>
+
+          </section>
+
     </div>
-
-    <div class="container">
-      <div class="blog-header">
-        <h1 class="blog-title"><a href="">News</a></h1>
-        <p class="lead blog-description">A test blog.</p>
-      </div>
-      <div class="row">
-
-        <div class="col-sm-8 blog-main">
-          {% block content %}
-          {% endblock %}
-        </div>
-
-      </div>
-    </div>
-    <!-- Footer -->
-    <footer class="blog-footer">
-      <p>Blog for test purpose. Final version TBA soon.</p>
-      <p>@Francé 2016</p>
-      <p>
-        <a href="#">Back to top</a>
-      </p>
-    </footer>
+    <!-- Scripts -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/skel.min.js' %}"></script>
+    <script src="{% static 'js/util.js' %}"></script>
+    <!--[if lte IE 8]><script src="{% static 'js/ie/respond.min.js' %}"></script><![endif]-->
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>
+
+<!-- TO-DO: Change post_detail and fix python/django tags in templates !-->

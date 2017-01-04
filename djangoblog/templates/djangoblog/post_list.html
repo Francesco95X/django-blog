@@ -2,16 +2,34 @@
 
 {% block content %}
           {% for post in posts %}
-            <div class="blog-post">
-              <h2 class="blog-post-title"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-              <p class="blog-post-meta">{{ post.published_date }}</p>
-              <p>{{ post.text|linebreaksbr }}</p>
-            </div>
+            <article class="post">
+              <header>
+                <div class="title">
+                  <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                </div>
+                <div class="meta">
+                  <time class="published">{{ post.published_date }}</time>
+                  <a href="#" class="author"><span class="name">Admin</span><img src="media/admin/avatar.png" alt="" /></a>
+                </div>
+              </header>
+              {% if post.image %}
+                <a href="#" class="image featured"><img src="{{ post.image.url }}" alt="" /></a>
+              {% endif %}
+              <p>{{ post.text|linebreaksbr|truncatechars:50 }}</p>
+              <footer>
+                <ul class="actions">
+                  <li><a href="{% url 'post_detail' pk=post.pk %}" class="button big">Continue Reading</a></li>
+                </ul>
+                <ul class="stats">
+                  <li><a href="#">General</a></li>
+                  <li><a href="#" class="icon fa-heart">28</a></li>
+                  <li><a href="#" class="icon fa-comment">128</a></li>
+                </ul>
+              </footer>
+            </article>
           {% endfor %}
-          <nav>
-            <ul class="pager">
-              <li><a href="#">Previous</a></li>
-              <li><a href="#">Next</a></li>
+            <ul class="actions pagination">
+              <li><a href="" class="disabled button big previous">Previous Page</a></li>
+              <li><a href="#" class="button big next">Next Page</a></li>
             </ul>
-          </nav>
 {% endblock content %}
