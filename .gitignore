@@ -3,5 +3,4 @@ __pycache__
 myenv
 db.sqlite3
 /static
-media
 .DS_Store
