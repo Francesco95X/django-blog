@@ -24,9 +24,9 @@
 						<nav class="links">
 							<ul>
 								<li><a href="{% url 'post_list' %}">Home</a></li>
-								<li><a href="#">About</a></li>
-								<li><a href="#">Contact</a></li>
-								<li><a href="#">Archive</a></li>
+								<li><a href="#about">About</a></li>
+								<li><a href="#contact">Contact</a></li>
+								<li><a href="#archive">Archive</a></li>
 							</ul>
 						</nav>
   						<nav class="main">
@@ -42,11 +42,17 @@
   									  <a class="fa-bars" href="#menu">Menu</a>
   								  </li>
                   {% endif %}
+
+                  {% if user.is_anonymous %}
+                    <li class="menu">
+                      <a class="fa-bars" href="#menu">Menu</a>
+                    </li>
+                  {% endif %}
   							</ul>
   						</nav>
 					</header>
 
-				<!-- Menu -->
+				<!-- Menu Admin-->
         {% if user.is_authenticated %}
 					<section id="menu">
 
@@ -81,6 +87,31 @@
 
 					</section>
         {% endif %}
+
+        <!-- Menu !-->
+        {% if user.is_anonymous %}
+          <section id="menu">
+
+            <!-- Search -->
+              <section>
+                <form class="search" method="get" action="#">
+                  <input type="text" name="query" placeholder="Search" />
+                </form>
+              </section>
+
+            <!-- Links -->
+              <section>
+                <ul class="links">
+                  <li><a href="{% url 'post_list' %}">Home</a></li>
+  								<li><a href="#about">About</a></li>
+  								<li><a href="#contact">Contact</a></li>
+  								<li><a href="#archive">Archive</a></li>
+                </ul>
+              </section>
+
+          </section>
+        {% endif %}
+
           <div id="main">
             {% block content %}
             {% endblock %}
@@ -90,7 +121,6 @@
 
   					<!-- Intro -->
   					<section id="intro">
-  						<a href="#logo" class="logo"><img src="media/admin/logo.png" alt="" /></a>
   						<header>
   							<h2>Daily Life</h2>
   							<p>A blog about daily life news</a></p>
@@ -102,16 +132,16 @@
               <h2>About</h2>
               <p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
               <ul class="actions">
-                <li><a href="#" class="button">Learn More</a></li>
+                <li><a href="#about" class="button">Learn More</a></li>
               </ul>
             </section>
 
             <!-- Footer -->
 						<section id="footer">
 							<ul class="icons">
-								<li><a href="#" class="fa-facebook"><span class="label">Facebook</span></a></li>
-								<li><a href="#" class="fa-instagram"><span class="label">Instagram</span></a></li>
-								<li><a href="#" class="fa-envelope"><span class="label">Email</span></a></li>
+								<li><a href="#facebook" class="fa-facebook"><span class="label">Facebook</span></a></li>
+								<li><a href="#instagram" class="fa-instagram"><span class="label">Instagram</span></a></li>
+								<li><a href="#email-me" class="fa-envelope"><span class="label">Email</span></a></li>
 							</ul>
 							<p class="copyright">&copy; DailyLife 2017.</p>
 						</section>
@@ -125,7 +155,6 @@
     <script src="{% static 'js/util.js' %}"></script>
     <!--[if lte IE 8]><script src="{% static 'js/ie/respond.min.js' %}"></script><![endif]-->
     <script src="{% static 'js/main.js' %}"></script>
+
   </body>
 </html>
-
-<!-- TO-DO: Change post_detail and fix python/django tags in templates !-->

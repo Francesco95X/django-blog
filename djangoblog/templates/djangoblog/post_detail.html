@@ -10,7 +10,7 @@
       {% if post.published_date %}
         <div class="meta">
           <time class="published">{{ post.published_date }}</time>
-          <a href="#" class="author"><span class="name">Admin</span><img src="images/avatar.jpg" alt="" /></a>
+          <a href="#" class="author"><span class="name">Admin</span>
         </div>
       {% endif %}
     </header>
@@ -23,6 +23,31 @@
     {% endif %}
     <p>{{ post.text|linebreaksbr }}</p>
   </article>
+
+  <a class="button big" href="{% url 'add_comment' pk=post.pk %}">Add comment</a>
+  <hr />
+
+  {% for comment in post.comments.all %}
+
+    {% if user.is_authenticated or comment.approved_comment %}
+    <article class="post">
+      <header>
+        <div class="meta">
+          <time class="published">{{ comment.created_date }}</time>
+          <a href="#" class="author"><span class="name">{{ comment.name }}</span></a>
+          {% if not comment.approved_comment %}
+            <a href="{% url 'comment_remove' pk=comment.pk %}"><i class="fa fa-times" aria-hidden="true"></i></a>
+            <a href="{% url 'comment_approve' pk=comment.pk %}"><i class="fa fa-check" aria-hidden="true"></i></a>
+          {% endif %}
+        </div>
+      </header>
+      <p>{{ comment.text }}</p>
+    </article>
+    {% endif %}
+
+  {% empty %}
+    <p>No comments.</p>
+  {% endfor %}
 
     <ul class="actions pagination">
       <li><a href="{% url 'post_list' %}" class="button big">Back</a></li>

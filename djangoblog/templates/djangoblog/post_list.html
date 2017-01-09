@@ -1,7 +1,7 @@
 {% extends 'djangoblog/base.html' %}
 
 {% block content %}
-          {% for post in posts %}
+          {% for post in object_list %}
             <article class="post">
               <header>
                 <div class="title">
@@ -21,15 +21,15 @@
                   <li><a href="{% url 'post_detail' pk=post.pk %}" class="button big">Continue Reading</a></li>
                 </ul>
                 <ul class="stats">
-                  <li><a href="#">General</a></li>
-                  <li><a href="#" class="icon fa-heart">28</a></li>
-                  <li><a href="#" class="icon fa-comment">128</a></li>
+                  {% for tag in post.tags.all %}
+                    <li><a>{{ tag }}</a></li>
+                  {% empty %}
+                    <li>No Tags</li>
+                  {% endfor %}
+                  <li><a href="{% url 'post_detail' pk=post.pk %}" class="icon fa-comment">{{ post.approved_comments.count }}</a></li>
                 </ul>
               </footer>
             </article>
           {% endfor %}
-            <ul class="actions pagination">
-              <li><a href="" class="disabled button big previous">Previous Page</a></li>
-              <li><a href="#" class="button big next">Next Page</a></li>
-            </ul>
+        {% include "pagination.html" %}
 {% endblock content %}
